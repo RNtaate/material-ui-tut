@@ -1,9 +1,13 @@
-
+import React from "react";
+import Notes from "./pages/Notes";
+import Create from "./pages/Create";
 
 function App() {
   return (
     <div >
-      <h1>This is the App page</h1>
+      <h1>My Project</h1>
+      <Notes />
+      <Create />
     </div>
   );
 }
