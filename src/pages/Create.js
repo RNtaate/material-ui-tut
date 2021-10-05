@@ -4,10 +4,16 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 let classes = {
   field: {
     marginBottom: 2,
+    display: 'block'
   }
 }
 
@@ -16,6 +22,7 @@ const Create = () => {
   let [noteContent, setNoteContent] = useState({
     title: '',
     details: '',
+    category: 'todos',
     titleError: false,
     detailsError: false
   })
@@ -24,6 +31,10 @@ const Create = () => {
     let name = e.target.name;
 
     setNoteContent({...noteContent, [name]: e.target.value});
+  }
+
+  let handleRadioChange = (e) => {
+    setNoteContent({...noteContent, category: e.target.value});
   }
 
   let handleSubmit = (e) => {
@@ -70,6 +81,20 @@ const Create = () => {
           onChange={handleChange}
           error={noteContent.detailsError}
         />
+
+        <FormControl sx={classes.field} component="fieldset">
+          <FormLabel component="legend" sx={{color: 'red', '&.MuiFormLabel-colorPrimary':{
+            color: '#999'
+          }
+          }}>Categories</FormLabel>
+          <RadioGroup color="secondary" value={noteContent.category} onChange={handleRadioChange}>
+            <FormControlLabel value="money" control={<Radio color="secondary"/>} label="Money" />
+            <FormControlLabel value="todos" control={<Radio color="secondary"/>} label="Todos" />
+            <FormControlLabel value="reminders" control={<Radio color="secondary"/>} label="Reminders" />
+            <FormControlLabel value="work" control={<Radio color="secondary"/>} label="Work" />
+          </RadioGroup>
+        </FormControl>
+
 
         <Button
           variant="contained"
