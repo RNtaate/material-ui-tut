@@ -1,5 +1,8 @@
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react'
+import Grid from '@mui/material/Grid';
+
+import NoteCard from '../components/NoteCard';
 
 const Notes = () =>  {
   let [myNotes, setMyNotes] = useState([]);
@@ -15,14 +18,17 @@ const Notes = () =>  {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h5">NOTES</Typography>
-      {
-        myNotes.length == 0 ?
-        null :
-        myNotes.map((note) => <Typography variant="h6" component="h2" key={note.id} color="textSecondary">{note.title}</Typography>)
-      }
-    </div>
+    <Container>
+      <Grid container spacing={2}>
+        {
+          myNotes.map(note => (
+            <Grid item key={note.id} xs={12} sm={6} md={4} lg={3}>
+              <NoteCard note={note}/>
+            </Grid>
+          ))
+        }
+      </Grid>
+    </Container>
   )
 }
 
