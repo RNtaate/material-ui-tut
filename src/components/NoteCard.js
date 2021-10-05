@@ -5,13 +5,17 @@ import CardContent from '@mui/material/CardContent';
 import { IconButton, Typography } from '@mui/material';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({ note, handleNoteDelete }) => {
+
+  let handleDelete = () => {
+    handleNoteDelete(note);
+  }
   return (
     <div>
       <Card>
         <CardHeader
         action={
-          <IconButton>
+          <IconButton onClick={handleDelete}>
             <DeleteOutlinedIcon />
           </IconButton>
         }
