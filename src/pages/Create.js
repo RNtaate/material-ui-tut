@@ -9,6 +9,7 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { useHistory } from 'react-router-dom';
 
 let classes = {
   field: {
@@ -26,6 +27,8 @@ const Create = () => {
     titleError: false,
     detailsError: false
   })
+
+  let history = useHistory();
 
   let handleChange = (e) => {
     let name = e.target.name;
@@ -46,6 +49,19 @@ const Create = () => {
       titleError: noteContent.title == '',
       detailsError: noteContent.details == ''
     })
+
+    if (noteContent.title != '' && noteContent.details != '') {
+      let {title, details, category} = noteContent;
+      fetch("http://localhost:8000/notes", {
+        method: 'POST',
+        headers: {"content-type":"application/json"},
+        body: JSON.stringify({title, details, category})
+      })
+      .then(() => history.push('/'))
+      .catch((error) => {
+        console.log("Something went wrong", error);
+      })
+    }
   }
 
   return (
