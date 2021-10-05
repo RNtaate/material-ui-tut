@@ -20,12 +20,15 @@ const Notes = () =>  {
   }
 
   useEffect(async () => {
-    let response = await fetch("http://localhost:8000/notes")
-    await response.json().then((rslt) => {
-      console.log(rslt);
-      setMyNotes(rslt);
+    await fetch("http://localhost:8000/notes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      setMyNotes(data);
     }).catch((error) => {
-      console.log("Something went wrong", error);
+      console.log('Something went wrong ', error);
     })
 
   }, []);
