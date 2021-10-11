@@ -1,11 +1,17 @@
 import { Container, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
+import Masonry from 'react-masonry-css'
 
 import NoteCard from '../components/NoteCard';
 
 const Notes = () =>  {
   let [myNotes, setMyNotes] = useState([]);
+  const breakpoints = {
+    default: 3,
+    1100: 2,
+    700: 1
+  }
 
   let handleNoteDelete = async (note) => {
     await fetch("http://localhost:8000/notes/" + note.id, {
@@ -20,27 +26,36 @@ const Notes = () =>  {
   }
 
   useEffect(async () => {
-    let response = await fetch("http://localhost:8000/notes")
-    await response.json().then((rslt) => {
-      console.log(rslt);
-      setMyNotes(rslt);
+    await fetch("http://localhost:8000/notes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      setMyNotes(data);
     }).catch((error) => {
-      console.log("Something went wrong", error);
+      console.log('Something went wrong ', error);
     })
 
   }, []);
 
   return (
-    <Container>
-      <Grid container spacing={2}>
+    <Container 
+      sx={{padding: 2}}
+    >
+      <Masonry
+        breakpointCols={breakpoints}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
         {
           myNotes.map(note => (
-            <Grid item key={note.id} xs={12} sm={6} md={4} lg={3}>
+            <div key={note.id} >
               <NoteCard note={note} handleNoteDelete={handleNoteDelete}/>
-            </Grid>
+            </div>
           ))
         }
-      </Grid>
+      </Masonry>
     </Container>
   )
 }
