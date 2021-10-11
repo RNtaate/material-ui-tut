@@ -65,7 +65,9 @@ const Create = () => {
   }
 
   return (
-    <Container>
+    <Container
+      sx={{padding: 2}}
+    >
       <Typography variant="h6" component="h2" gutterBottom color="textSecondary">
         Create a New Note
       </Typography>

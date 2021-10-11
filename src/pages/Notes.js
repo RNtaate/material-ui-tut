@@ -34,7 +34,9 @@ const Notes = () =>  {
   }, []);
 
   return (
-    <Container>
+    <Container 
+      sx={{padding: 2}}
+    >
       <Grid container spacing={2}>
         {
           myNotes.map(note => (
