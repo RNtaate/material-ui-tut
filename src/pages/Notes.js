@@ -38,7 +38,7 @@ const Notes = () =>  {
       <Grid container spacing={2}>
         {
           myNotes.map(note => (
-            <Grid item key={note.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid item key={note.id} xs={12} md={6} lg={4}>
               <NoteCard note={note} handleNoteDelete={handleNoteDelete}/>
             </Grid>
           ))
