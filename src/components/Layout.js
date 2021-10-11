@@ -95,7 +95,7 @@ let Layout = ({ children }) => {
         </div>
       </Drawer>
 
-      <div className={classes.page}>
+      <div sx={classes.page}>
         {children}
       </div>
     </div>
