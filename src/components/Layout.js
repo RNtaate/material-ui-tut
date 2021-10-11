@@ -10,6 +10,8 @@ import { AddCircleOutlineOutlined, SubjectOutlined } from '@mui/icons-material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useHistory, useLocation } from 'react-router-dom';
+import {format} from 'date-fns';
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 240;
 
@@ -104,9 +106,24 @@ let Layout = ({ children }) => {
           elevation={0}
         >
           <Toolbar>
-            <Typography color="text.primary">
-              Welcome to the norp industries notes website
+            <Typography 
+              color="text.primary"
+              sx={{
+                flexGrow: 1
+              }}
+            >
+              Today is the {format(new Date(), "do MMMM Y")}
             </Typography>
+            <Typography>
+              Dipesh
+            </Typography>
+            <Avatar 
+              alt="Dipesh Image"
+              src="/bird.jpg"
+              sx={{
+                ml: 2
+              }}
+            />
           </Toolbar>
         </AppBar>
         {children}
