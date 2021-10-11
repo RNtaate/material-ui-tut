@@ -7,6 +7,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@mui/icons-material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -17,7 +19,7 @@ let useStyles = makeStyles({
   },
   page: {
     backgroundColor: "#f9f9f9",
-    width: "100%"
+    width: "100%",
   },
   drawer: {
     width: drawerWidth,
@@ -96,6 +98,17 @@ let Layout = ({ children }) => {
       </Drawer>
 
       <div className={classes.page}>
+        {/* app bar */}
+        <AppBar 
+          position="static"
+          elevation={0}
+        >
+          <Toolbar>
+            <Typography color="text.primary">
+              Welcome to the norp industries notes website
+            </Typography>
+          </Toolbar>
+        </AppBar>
         {children}
       </div>
     </div>
