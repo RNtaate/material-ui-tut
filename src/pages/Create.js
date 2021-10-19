@@ -60,7 +60,8 @@ const Create = () => {
 
     if (noteContent.title != '' && noteContent.details != '') {
       let {title, details, category} = noteContent;
-      handleNotesUpdate({title, details, category});
+      let id = `${existingNotes.length + 1}`
+      handleNotesUpdate({title, details, category, id});
     }
   }
 
