@@ -25,17 +25,22 @@ const Notes = () =>  {
     })
   }
 
-  useEffect(async () => {
-    await fetch("http://localhost:8000/notes")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      setMyNotes(data);
-    }).catch((error) => {
-      console.log('Something went wrong ', error);
-    })
+  useEffect(() => {
+    // await fetch("http://localhost:8000/notes")
+    // .then((response) => {
+    //   return response.json();
+    // })
+    // .then((data) => {
+    //   console.log(data);
+    //   setMyNotes(data);
+    // }).catch((error) => {
+    //   console.log('Something went wrong ', error);
+    // })
+
+    if(localStorage.getItem("notes")){
+      let notesArray = JSON.parse(localStorage.getItem("notes"));
+      setMyNotes(notesArray);
+    }
 
   }, []);
 
@@ -49,11 +54,13 @@ const Notes = () =>  {
         columnClassName="my-masonry-grid_column"
       >
         {
-          myNotes.map(note => (
-            <div key={note.id} >
+          myNotes.length > 0 ?
+          myNotes.map((note, key) => (
+            <div key={key} >
               <NoteCard note={note} handleNoteDelete={handleNoteDelete}/>
             </div>
-          ))
+          )) :
+          <div>There are no notes created.</div>
         }
       </Masonry>
     </Container>
