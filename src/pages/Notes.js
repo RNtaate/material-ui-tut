@@ -13,16 +13,11 @@ const Notes = () =>  {
     700: 1
   }
 
-  let handleNoteDelete = async (note) => {
-    await fetch("http://localhost:8000/notes/" + note.id, {
-      method: 'DELETE'
-    })
-    .then((res) => {
-      let newNotes = myNotes.filter((currentNote) => currentNote.id != note.id)
-      setMyNotes(newNotes);
-    }).catch((error) => {
-      console.log('Something went wrong', error)
-    })
+  let handleNoteDelete = (note) => {
+    let newNotesArray = myNotes.filter( currentNote => currentNote.id != note.id)
+    newNotesArray.map((note, index) => note.id = `${index + 1}`) // update notes ids
+    setMyNotes(newNotesArray);
+    localStorage.setItem("notes", JSON.stringify(newNotesArray));
   }
 
   useEffect(() => {
@@ -44,12 +39,17 @@ const Notes = () =>  {
       >
         {
           myNotes.length > 0 ?
-          myNotes.map((note, key) => (
-            <div key={key} >
+          myNotes.map(note => (
+            <div key={note.id} >
               <NoteCard note={note} handleNoteDelete={handleNoteDelete}/>
             </div>
           )) :
-          <div>There are no notes created.</div>
+          <Typography
+            variant="h4"
+            sx={{
+              color: "#bbb"
+            }}
+          >There are no notes created.</Typography>
         }
       </Masonry>
     </Container>
