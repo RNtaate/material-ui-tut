@@ -7,9 +7,10 @@
 
 ### Screenshots
 |__Notes Page__|
-![](/public/norp_notes1.png)
+|-|
+|![](/public/norp_notes1.png)
 |__Create Page__|
-![](/public/norp_notes2.png)
+|![](/public/norp_notes2.png)
 
 ##  🔧 Built with
 
