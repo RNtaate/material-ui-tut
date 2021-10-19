@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -28,6 +28,8 @@ const Create = () => {
     detailsError: false
   })
 
+  let [existingNotes, setExistingNotes] = useState([]);
+
   let history = useHistory();
 
   let handleChange = (e) => {
@@ -38,6 +40,12 @@ const Create = () => {
 
   let handleRadioChange = (e) => {
     setNoteContent({...noteContent, category: e.target.value});
+  }
+
+  let handleNotesUpdate = (obj) => {
+    setExistingNotes([...existingNotes, obj]);
+    localStorage.setItem("notes", JSON.stringify([...existingNotes, obj]));
+    history.push('/');
   }
 
   let handleSubmit = (e) => {
@@ -52,17 +60,17 @@ const Create = () => {
 
     if (noteContent.title != '' && noteContent.details != '') {
       let {title, details, category} = noteContent;
-      fetch("http://localhost:8000/notes", {
-        method: 'POST',
-        headers: {"content-type":"application/json"},
-        body: JSON.stringify({title, details, category})
-      })
-      .then(() => history.push('/'))
-      .catch((error) => {
-        console.log("Something went wrong", error);
-      })
+      let id = `${existingNotes.length + 1}`
+      handleNotesUpdate({title, details, category, id});
     }
   }
+
+  useEffect(() => {
+    if(localStorage.getItem("notes")) {
+      let notesArray = JSON.parse(localStorage.getItem("notes"));
+      setExistingNotes(notesArray);
+    }
+  }, [])
 
   return (
     <Container

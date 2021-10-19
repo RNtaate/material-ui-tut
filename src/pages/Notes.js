@@ -13,29 +13,18 @@ const Notes = () =>  {
     700: 1
   }
 
-  let handleNoteDelete = async (note) => {
-    await fetch("http://localhost:8000/notes/" + note.id, {
-      method: 'DELETE'
-    })
-    .then((res) => {
-      let newNotes = myNotes.filter((currentNote) => currentNote.id != note.id)
-      setMyNotes(newNotes);
-    }).catch((error) => {
-      console.log('Something went wrong', error)
-    })
+  let handleNoteDelete = (note) => {
+    let newNotesArray = myNotes.filter( currentNote => currentNote.id != note.id)
+    newNotesArray.map((note, index) => note.id = `${index + 1}`) // update notes ids
+    setMyNotes(newNotesArray);
+    localStorage.setItem("notes", JSON.stringify(newNotesArray));
   }
 
-  useEffect(async () => {
-    await fetch("http://localhost:8000/notes")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      setMyNotes(data);
-    }).catch((error) => {
-      console.log('Something went wrong ', error);
-    })
+  useEffect(() => {
+    if(localStorage.getItem("notes")){
+      let notesArray = JSON.parse(localStorage.getItem("notes"));
+      setMyNotes(notesArray);
+    }
 
   }, []);
 
@@ -49,11 +38,18 @@ const Notes = () =>  {
         columnClassName="my-masonry-grid_column"
       >
         {
+          myNotes.length > 0 ?
           myNotes.map(note => (
             <div key={note.id} >
               <NoteCard note={note} handleNoteDelete={handleNoteDelete}/>
             </div>
-          ))
+          )) :
+          <Typography
+            variant="h4"
+            sx={{
+              color: "#bbb"
+            }}
+          >There are no notes created.</Typography>
         }
       </Masonry>
     </Container>
