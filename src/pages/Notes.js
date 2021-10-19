@@ -26,17 +26,6 @@ const Notes = () =>  {
   }
 
   useEffect(() => {
-    // await fetch("http://localhost:8000/notes")
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .then((data) => {
-    //   console.log(data);
-    //   setMyNotes(data);
-    // }).catch((error) => {
-    //   console.log('Something went wrong ', error);
-    // })
-
     if(localStorage.getItem("notes")){
       let notesArray = JSON.parse(localStorage.getItem("notes"));
       setMyNotes(notesArray);

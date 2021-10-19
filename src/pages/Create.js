@@ -60,16 +60,6 @@ const Create = () => {
 
     if (noteContent.title != '' && noteContent.details != '') {
       let {title, details, category} = noteContent;
-      // fetch("http://localhost:8000/notes", {
-      //   method: 'POST',
-      //   headers: {"content-type":"application/json"},
-      //   body: JSON.stringify({title, details, category})
-      // })
-      // .then(() => history.push('/'))
-      // .catch((error) => {
-      //   console.log("Something went wrong", error);
-      // })
-
       handleNotesUpdate({title, details, category});
     }
   }
