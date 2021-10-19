@@ -6,7 +6,9 @@
 > The project emulates creating and deleting of notes by a user and uses Local Storage to store the created notes.
 
 ### Screenshots
+|__Notes Page__|
 ![](/public/norp_notes1.png)
+|__Create Page__|
 ![](/public/norp_notes2.png)
 
 ##  🔧 Built with
